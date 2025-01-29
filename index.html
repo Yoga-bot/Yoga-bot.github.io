@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rental Mini App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Car Rental</h1>
+        <p>Welcome to the Car Rental Mini App!</p>
+        <button id="rentButton">Rent a Car</button>
+        <p id="status"></p>
+    </div>
+
+    <script>
+        // Инициализация Telegram Web App
+        const tg = window.Telegram.WebApp;
+
+        // Показываем кнопку "Закрыть"
+        tg.MainButton.setText("Close").show().onClick(() => {
+            tg.close();
+        });
+
+        // Обработка нажатия на кнопку "Rent a Car"
+        document.getElementById('rentButton').addEventListener('click', () => {
+            const status = document.getElementById('status');
+            status.textContent = "Car rented successfully!";
+            tg.sendData(JSON.stringify({ action: "rent", car: "Tesla Model S" }));
+        });
+
+        // Получение данных пользователя
+        const user = tg.initDataUnsafe.user;
+        if (user) {
+            console.log("User:", user);
+        }
+    </script>
+</body>
+</html>
